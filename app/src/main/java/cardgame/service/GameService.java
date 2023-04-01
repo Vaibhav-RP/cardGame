@@ -1,0 +1,137 @@
+package cardgame.service;
+
+import java.util.ArrayList;
+import cardgame.entity.Card;
+import cardgame.entity.Deck;
+import cardgame.entity.Player;
+import cardgame.enums.Rank;
+
+public class GameService {
+    private ArrayList<Player> players;
+    private Deck deck;
+    private ArrayList<Card> discardPile;
+    private int currentPlayerIndex;
+    private int direction;
+
+    public GameService(ArrayList<Player> players, Deck deck) {
+        
+        this.players = players;
+        this.deck = deck;
+
+        discardPile = new ArrayList<Card>();
+        Card firstCard = deck.deal();
+        discardPile.add(firstCard);
+        currentPlayerIndex = 0;
+        direction = 1;
+    }
+    
+    
+    public void playGame() {
+        while (true) {
+            System.out.println();
+            Player currentPlayer = players.get(currentPlayerIndex);
+            System.out.println(String.format("    It's %s's turn", currentPlayer));
+            System.out.println(String.format("    Top card on discard pile : %s", discardPile.get(discardPile.size() - 1)));
+            System.out.println(String.format("    Your hand : %s", currentPlayer.getHand()));
+    
+            boolean playedCard = playCards(currentPlayer);
+    
+            if (!playedCard) {
+                System.out.println("    No cards to play. Drawing a card from the draw pile.");
+                drawCard(currentPlayer);
+                if (deck.isEmpty()) {
+                    System.out.println("\n    Draw pile is empty. Game over.");
+                    return;
+                }
+            }
+            if (currentPlayer.getHand().isEmpty()) {
+                System.out.println(String.format("\n   %s has won the game!", currentPlayer));
+                return;
+            }
+
+            System.out.println(String.format("    Your hand after card played: %s", currentPlayer.getHand()));
+    
+            currentPlayerIndex = getNextPlayerIndex();
+        }
+    }
+    
+
+
+    public boolean playCards(Player currentPlayer) {
+        boolean playedCard = false;
+        for (int i = 0; i < currentPlayer.getHand().size(); i++) {
+            Card card = currentPlayer.getHand().get(i);
+            if (card.getSuit().equals(discardPile.get(discardPile.size() - 1).getSuit()) ||
+                    card.getRank().equals(discardPile.get(discardPile.size() - 1).getRank())) {
+                discardPile.add(card);
+                currentPlayer.removeCardFromHand(i);
+                System.out.println(String.format("    %s played %s", currentPlayer.getName(), card));
+                playedCard = true;
+    
+                handleSpecialCards(currentPlayer, card);
+    
+                break;
+            }
+        }
+        return playedCard;
+    }
+  
+    
+
+    private void handleSpecialCards(Player currentPlayer, Card card) {
+        if (card.getRank().equals(Rank.ACE)) {
+            System.out.println("    Skipping next player");
+            currentPlayerIndex = getNextPlayerIndex();
+        } else if (card.getRank().equals(Rank.KING)) {
+            System.out.println("    Reversing direction");
+            direction *= -1;
+            currentPlayerIndex = getNextPlayerIndex();
+        } else if (card.getRank().equals(Rank.QUEEN)) {
+            Player nextPlayer = getNextPlayer();
+            System.out.println(String.format("    Drawing 2 cards for %s (next player)", nextPlayer.getName()));
+            for (int j = 0; j < 2; j++) {
+                Card drawnCard = deck.deal();
+                nextPlayer.draw(drawnCard);
+            }
+        } else if (card.getRank().equals(Rank.JACK)) {
+            Player nextPlayer = getNextPlayer();
+            System.out.println(String.format("    Drawing 4 cards for %s (next player)", nextPlayer.getName()));
+            for (int j = 0; j < 4; j++) {
+                Card drawnCard = deck.deal();
+                nextPlayer.draw(drawnCard);
+            }
+        }
+    }
+    
+
+
+    private void drawCard(Player currentPlayer) {
+        Card drawnCard = deck.deal();
+        currentPlayer.draw(drawnCard);
+    }
+    
+
+
+    private Player getNextPlayer() {
+        int nextPlayerIndex = currentPlayerIndex + direction;
+        if (nextPlayerIndex == players.size()) {
+            nextPlayerIndex = 0;
+        } else if (nextPlayerIndex < 0) {
+            nextPlayerIndex = players.size() - 1;
+        }
+        return players.get(nextPlayerIndex);
+    }
+
+
+
+    private int getNextPlayerIndex() {
+        int nextPlayerIndex = currentPlayerIndex + direction;
+        if (nextPlayerIndex == players.size()) {
+            nextPlayerIndex = 0;
+        } else if (nextPlayerIndex < 0) {
+            nextPlayerIndex = players.size() - 1;
+        }
+        return nextPlayerIndex;
+    }
+    
+}
