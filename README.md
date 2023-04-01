@@ -27,6 +27,7 @@ NOTE: actions are not stackable i.e. if Q is played by player 1 then player two 
 
 #How to run a code :
  To run this code rum main method from App.class  cardGame/app/src/main/java/cardgame/App.java
+ 
 #Sample Input :
 
 ![Screenshot from 2023-04-01 19-25-35](https://user-images.githubusercontent.com/54895294/229293907-c9f5c612-e7b9-45e8-a492-49f17bc41e75.png)
