@@ -24,9 +24,9 @@ public class GameServiceTest {
     @BeforeEach
     public void setUp() {
         players = new ArrayList<Player>(Arrays.asList(
-            new Player("Alice"),
-            new Player("Bob"),
-            new Player("Charlie")
+            new Player("vaibhav"),
+            new Player("Tushar"),
+            new Player("Mayur")
         ));
         deck = new Deck();
         gameService = new GameService(players, deck);
@@ -128,7 +128,7 @@ public class GameServiceTest {
     @Test
     public void testAceCard() {
         // create test player and card
-        Player p1 = new Player("Alice");
+        Player p1 = new Player("Vaibhav");
         Card aceCard = new Card(Rank.ACE, Suit.HEARTS);
 
         // create game service instance
@@ -144,7 +144,7 @@ public class GameServiceTest {
     @Test
     public void testKingCard() {
         // create test player and card
-        Player p1 = new Player("Alice");
+        Player p1 = new Player("Vaibhav");
         Card kingCard = new Card(Rank.KING, Suit.HEARTS);
 
         // create game service instance
@@ -161,8 +161,8 @@ public class GameServiceTest {
     @Test
     public void testQueenCard() {
         // create test players and card
-        Player p1 = new Player("Alice");
-        Player p2 = new Player("Bob");
+        Player p1 = new Player("Vaibhav");
+        Player p2 = new Player("Tushar");
         Card queenCard = new Card(Rank.QUEEN, Suit.HEARTS);
 
         // create game service instance
