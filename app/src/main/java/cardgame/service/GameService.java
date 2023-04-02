@@ -1,19 +1,21 @@
 package cardgame.service;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import cardgame.entity.Card;
 import cardgame.entity.Deck;
 import cardgame.entity.Player;
 import cardgame.enums.Rank;
 
 public class GameService {
-    private ArrayList<Player> players;
+    private List<Player> players;
     private Deck deck;
     private ArrayList<Card> discardPile;
     private int currentPlayerIndex;
     private int direction;
 
-    public GameService(ArrayList<Player> players, Deck deck) {
+    public GameService(List<Player> players, Deck deck) {
         
         this.players = players;
         this.deck = deck;
@@ -25,7 +27,48 @@ public class GameService {
         direction = 1;
     }
     
+
+    public int getDirection(){
+        return direction;
+    }
+
+    public List<Card> getDiscardPile(){
+        return discardPile;
+    }
+
+    public void drawCard(Player currentPlayer) {
+        Card drawnCard = deck.deal();
+        currentPlayer.draw(drawnCard);
+    }
     
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayerIndex);
+    }
+
+
+    public Player getNextPlayer() {
+        int nextPlayerIndex = currentPlayerIndex + direction;
+        if (nextPlayerIndex == players.size()) {
+            nextPlayerIndex = 0;
+        } else if (nextPlayerIndex < 0) {
+            nextPlayerIndex = players.size() - 1;
+        }
+        return players.get(nextPlayerIndex);
+    }
+
+
+
+    public int getNextPlayerIndex() {
+        int nextPlayerIndex = currentPlayerIndex + direction;
+        if (nextPlayerIndex == players.size()) {
+            nextPlayerIndex = 0;
+        } else if (nextPlayerIndex < 0) {
+            nextPlayerIndex = players.size() - 1;
+        }
+        return nextPlayerIndex;
+    }
+
+
     public void playGame() {
         while (true) {
             System.out.println();
@@ -78,7 +121,7 @@ public class GameService {
   
     
 
-    private void handleSpecialCards(Player currentPlayer, Card card) {
+    public void handleSpecialCards(Player currentPlayer, Card card) {
         if (card.getRank().equals(Rank.ACE)) {
             System.out.println("    Skipping next player");
             currentPlayerIndex = getNextPlayerIndex();
@@ -105,37 +148,6 @@ public class GameService {
                     nextPlayer.draw(drawnCard);
             }
         }
-    }
-    
-
-
-    private void drawCard(Player currentPlayer) {
-        Card drawnCard = deck.deal();
-        currentPlayer.draw(drawnCard);
-    }
-    
-
-
-    private Player getNextPlayer() {
-        int nextPlayerIndex = currentPlayerIndex + direction;
-        if (nextPlayerIndex == players.size()) {
-            nextPlayerIndex = 0;
-        } else if (nextPlayerIndex < 0) {
-            nextPlayerIndex = players.size() - 1;
-        }
-        return players.get(nextPlayerIndex);
-    }
-
-
-
-    private int getNextPlayerIndex() {
-        int nextPlayerIndex = currentPlayerIndex + direction;
-        if (nextPlayerIndex == players.size()) {
-            nextPlayerIndex = 0;
-        } else if (nextPlayerIndex < 0) {
-            nextPlayerIndex = players.size() - 1;
-        }
-        return nextPlayerIndex;
     }
     
 }

@@ -21,6 +21,7 @@ public class App {
         Deck deck;
         ArrayList<Player> players;
         int numPlayers;
+
         do{
             deck = new Deck();
             deck.shuffle();
@@ -31,6 +32,7 @@ public class App {
 
             if(numPlayers <=4 && numPlayers >=2){
                 for (int i = 1; i <= numPlayers; i++) {
+                    
                     System.out.println("    Enter Player"+ i +" name : ");
                     String name = scanner.next();
 

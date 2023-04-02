@@ -37,4 +37,8 @@ public class Deck {
     public List<Card> getDeck(){
         return cards;
     }
+
+    public Card getTopCard(){
+        return cards.get(0);
+    }
 }
