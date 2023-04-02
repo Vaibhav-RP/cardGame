@@ -25,8 +25,16 @@ Jacks(J): +4
 
 NOTE: actions are not stackable i.e. if Q is played by player 1 then player two draws two cards and cannot play a Q from his hand on that turn even if available
 
+ 
+# Prerequisite :
+    Java 1.8/1.11/1.15
+    Gradle
+    
 # How to run a code :
  To run this code rum main method from App.class  cardGame/app/src/main/java/cardgame/App.java
+ 
+# How to run all test cases :
+ To run test cases use this command :  ./gradlew test 
  
 # Sample Input :
 
