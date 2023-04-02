@@ -26,6 +26,50 @@ public class GameService {
         currentPlayerIndex = 0;
         direction = 1;
     }
+  
+
+    public Deck getDeck(){
+        return deck;
+    }
+    public int getDirection(){
+        return direction;
+    }
+
+    public List<Card> getDiscardPile(){
+        return discardPile;
+    }
+
+    public void drawCard(Player currentPlayer) {
+        Card drawnCard = deck.deal();
+        currentPlayer.draw(drawnCard);
+    }
+    
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayerIndex);
+    }
+
+
+    public Player getNextPlayer() {
+        int nextPlayerIndex = currentPlayerIndex + direction;
+        if (nextPlayerIndex == players.size()) {
+            nextPlayerIndex = 0;
+        } else if (nextPlayerIndex < 0) {
+            nextPlayerIndex = players.size() - 1;
+        }
+        return players.get(nextPlayerIndex);
+    }
+
+
+
+    public int getNextPlayerIndex() {
+        int nextPlayerIndex = currentPlayerIndex + direction;
+        if (nextPlayerIndex == players.size()) {
+            nextPlayerIndex = 0;
+        } else if (nextPlayerIndex < 0) {
+            nextPlayerIndex = players.size() - 1;
+        }
+        return nextPlayerIndex;
+    }
 
     public void handleSpecialCards(Player currentPlayer, Card card) {
         if (card.getRank().equals(Rank.ACE)) {
@@ -74,52 +118,7 @@ public class GameService {
         }
         return playedCard;
     }
-  
-
-    public Deck getDeck(){
-        return deck;
-    }
-    public int getDirection(){
-        return direction;
-    }
-
-    public List<Card> getDiscardPile(){
-        return discardPile;
-    }
-
-    public void drawCard(Player currentPlayer) {
-        Card drawnCard = deck.deal();
-        currentPlayer.draw(drawnCard);
-    }
     
-    public Player getCurrentPlayer(){
-        return players.get(currentPlayerIndex);
-    }
-
-
-    public Player getNextPlayer() {
-        int nextPlayerIndex = currentPlayerIndex + direction;
-        if (nextPlayerIndex == players.size()) {
-            nextPlayerIndex = 0;
-        } else if (nextPlayerIndex < 0) {
-            nextPlayerIndex = players.size() - 1;
-        }
-        return players.get(nextPlayerIndex);
-    }
-
-
-
-    public int getNextPlayerIndex() {
-        int nextPlayerIndex = currentPlayerIndex + direction;
-        if (nextPlayerIndex == players.size()) {
-            nextPlayerIndex = 0;
-        } else if (nextPlayerIndex < 0) {
-            nextPlayerIndex = players.size() - 1;
-        }
-        return nextPlayerIndex;
-    }
-
-
     public void playGame() {
         while (true) {
             System.out.println();
