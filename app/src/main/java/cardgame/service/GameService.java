@@ -31,8 +31,8 @@ public class GameService {
             System.out.println();
             Player currentPlayer = players.get(currentPlayerIndex);
             System.out.println(String.format("    It's %s's turn", currentPlayer));
-            System.out.println(String.format("    Top card on discard pile : %s", discardPile.get(discardPile.size() - 1)));
-            System.out.println(String.format("    Your hand : %s", currentPlayer.getHand()));
+            System.out.println(String.format("    Top card on discard pile :- %s", discardPile.get(discardPile.size() - 1)));
+            System.out.println(String.format("    Your hand :- %s", currentPlayer.getHand()));
     
             boolean playedCard = playCards(currentPlayer);
     
@@ -40,16 +40,16 @@ public class GameService {
                 System.out.println("    No cards to play. Drawing a card from the draw pile.");
                 drawCard(currentPlayer);
                 if (deck.isEmpty()) {
-                    System.out.println("\n    Draw pile is empty. Game over.");
+                    System.out.println("\n<<<< ---- @@@@@@@@@@@@@@@@@@@@@@@ ---- >>>>  Ohhhh, Draw pile is empty. Game over  <<<< ---- @@@@@@@@@@@@@@@@@@@@@@@ ---- >>>>");
                     return;
                 }
             }
             if (currentPlayer.getHand().isEmpty()) {
-                System.out.println(String.format("\n   %s has won the game!", currentPlayer));
+                System.out.println(String.format("\n<<<< ---- @@@@@@@@@@@@@@@@@@@@@@@ ---- >>>>  Yehhhh, %s has won the game!  <<<< ---- @@@@@@@@@@@@@@@@@@@@@@@ ---- >>>>", currentPlayer));
                 return;
             }
 
-            System.out.println(String.format("    Your hand after card played: %s", currentPlayer.getHand()));
+            System.out.println(String.format("    Your hand after card played :- %s", currentPlayer.getHand()));
     
             currentPlayerIndex = getNextPlayerIndex();
         }
@@ -89,16 +89,20 @@ public class GameService {
         } else if (card.getRank().equals(Rank.QUEEN)) {
             Player nextPlayer = getNextPlayer();
             System.out.println(String.format("    Drawing 2 cards for %s (next player)", nextPlayer.getName()));
+
             for (int j = 0; j < 2; j++) {
                 Card drawnCard = deck.deal();
-                nextPlayer.draw(drawnCard);
+                if(drawnCard == null)
+                    nextPlayer.draw(drawnCard);
             }
+
         } else if (card.getRank().equals(Rank.JACK)) {
             Player nextPlayer = getNextPlayer();
             System.out.println(String.format("    Drawing 4 cards for %s (next player)", nextPlayer.getName()));
             for (int j = 0; j < 4; j++) {
                 Card drawnCard = deck.deal();
-                nextPlayer.draw(drawnCard);
+                if(drawnCard == null)
+                    nextPlayer.draw(drawnCard);
             }
         }
     }

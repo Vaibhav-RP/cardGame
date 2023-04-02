@@ -17,39 +17,51 @@ public class App {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        
-        // Create a new deck of cards and shuffle it
-        Deck deck = new Deck();
-        deck.shuffle();
+        boolean playAgain = true;
+        Deck deck;
+        ArrayList<Player> players;
+        int numPlayers;
+        do{
+            deck = new Deck();
+            deck.shuffle();
+            players = new ArrayList<>();
 
-        //System.out.println("\n    List of 52 Shuffle cards :\n");
-        //deck.getDeck().forEach(c -> System.out.println("    "+c));
-        //System.out.println(deck.getDeck().size());
-        
+            System.out.print("\n    Enter the number of players (2-4): \n"); 
+            numPlayers = scanner.nextInt();
 
-        ArrayList<Player> players = new ArrayList<>();
-        System.out.print("\n    Enter the number of players (2-4): \n");  // Get the number of players from the user
-        int numPlayers = scanner.nextInt();
+            if(numPlayers <=4 && numPlayers >=2){
+                for (int i = 1; i <= numPlayers; i++) {
+                    System.out.println("    Enter Player"+ i +" name : ");
+                    String name = scanner.next();
 
-        // Create the players and deal them each 5 cards  
-        for (int i = 1; i <= numPlayers; i++) {
-            System.out.println("    Enter Player"+ i +" name : ");
-            String name = scanner.next();
+                    Player player = new Player(name);
+                    for (int j = 0; j < 5; j++) {
+                        Card card = deck.deal();
+                        player.draw(card);
+                    }
+                    players.add(player);
+                }
 
-            Player player = new Player("Player "+name);
-            for (int j = 0; j < 5; j++) {
-                Card card = deck.deal();
-                player.draw(card);
+                GameService game = new GameService(players, deck);
+                game.playGame();
             }
-            players.add(player);
-        }
+            else {
+                System.out.println("\n    Enter valid number of player (i.e. 2,3,4)");
+            }
 
-        //System.out.println(players);
+            System.out.println("\n\n    Do you want to play again (yes/no)");
+            String string = scanner.next();
+            if(string.equalsIgnoreCase("no")){
+                System.out.print("\n    Thanks for Playing the Game ");
+                players.forEach(pl -> System.out.print(pl));
+                System.out.println();
+                playAgain = false;
+            }
 
 
-        GameService game = new GameService(players, deck);
-        game.playGame();
+        }while(playAgain);
         
+
         scanner.close();
             
     }
