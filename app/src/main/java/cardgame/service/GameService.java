@@ -92,7 +92,7 @@ public class GameService {
 
             for (int j = 0; j < 2; j++) {
                 Card drawnCard = deck.deal();
-                if(drawnCard == null)
+                if(drawnCard != null)
                     nextPlayer.draw(drawnCard);
             }
 
