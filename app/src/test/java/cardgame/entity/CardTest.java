@@ -20,6 +20,18 @@ public class CardTest {
     }
 
     @Test
+    public void testGetRank() {
+        Card card = new Card(Rank.ACE, Suit.SPADES);
+        assertEquals(Rank.ACE, card.getRank());
+    }
+
+    @Test
+    public void testGetSuit() {
+        Card card = new Card(Rank.KING, Suit.HEARTS);
+        assertEquals(Suit.HEARTS, card.getSuit());
+    }
+    
+    @Test
     @DisplayName(" Card class toString() result test ")
     public void testToString() {
         Card card = new Card(Rank.KING, Suit.HEARTS);
