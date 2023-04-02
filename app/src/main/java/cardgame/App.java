@@ -51,7 +51,7 @@ public class App {
 
             System.out.println("\n\n    Do you want to play again (yes/no)");
             String string = scanner.next();
-            if(string.equalsIgnoreCase("no")){
+            if(!string.equalsIgnoreCase("yes")){
                 System.out.print("\n    Thanks for Playing the Game ");
                 players.forEach(pl -> System.out.print(pl));
                 System.out.println();

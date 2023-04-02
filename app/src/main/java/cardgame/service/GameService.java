@@ -101,7 +101,7 @@ public class GameService {
             System.out.println(String.format("    Drawing 4 cards for %s (next player)", nextPlayer.getName()));
             for (int j = 0; j < 4; j++) {
                 Card drawnCard = deck.deal();
-                if(drawnCard == null)
+                if(drawnCard != null)
                     nextPlayer.draw(drawnCard);
             }
         }
