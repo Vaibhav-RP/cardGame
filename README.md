@@ -25,13 +25,13 @@ Jacks(J): +4
 
 NOTE: actions are not stackable i.e. if Q is played by player 1 then player two draws two cards and cannot play a Q from his hand on that turn even if available
 
-#How to run a code :
+# How to run a code :
  To run this code rum main method from App.class  cardGame/app/src/main/java/cardgame/App.java
  
-#Sample Input :
+# Sample Input :
 
-![Screenshot from 2023-04-01 19-25-35](https://user-images.githubusercontent.com/54895294/229293907-c9f5c612-e7b9-45e8-a492-49f17bc41e75.png)
+![Screenshot from 2023-04-02 14-54-11](https://user-images.githubusercontent.com/54895294/229344281-3141cf6a-877a-44ff-b797-f6493b7c43cc.png)
 
-#Smaple Output :
+# Smaple Output :
 
-![Screenshot from 2023-04-01 19-37-45](https://user-images.githubusercontent.com/54895294/229294082-4c2f9576-f162-462e-a518-254379f3091e.png)
+![Screenshot from 2023-04-02 14-55-06](https://user-images.githubusercontent.com/54895294/229344299-b78e842b-374b-49db-ab93-8b0f0fc0526f.png)
