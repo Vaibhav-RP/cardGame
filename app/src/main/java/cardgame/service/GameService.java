@@ -50,7 +50,7 @@ public class GameService {
 
 
     public Player getNextPlayer() {
-        int nextPlayerIndex = currentPlayerIndex + direction;
+        int nextPlayerIndex = currentPlayerIndex + this.direction;
         if (nextPlayerIndex == players.size()) {
             nextPlayerIndex = 0;
         } else if (nextPlayerIndex < 0) {
@@ -62,7 +62,7 @@ public class GameService {
 
 
     public int getNextPlayerIndex() {
-        int nextPlayerIndex = currentPlayerIndex + direction;
+        int nextPlayerIndex = currentPlayerIndex + this.direction;
         if (nextPlayerIndex == players.size()) {
             nextPlayerIndex = 0;
         } else if (nextPlayerIndex < 0) {
@@ -77,7 +77,7 @@ public class GameService {
             currentPlayerIndex = getNextPlayerIndex();
         } else if (card.getRank().equals(Rank.KING)) {
             System.out.println("    Reversing direction");
-            direction *= -1;
+            this.direction *= -1;
             currentPlayerIndex = getNextPlayerIndex();
         } else if (card.getRank().equals(Rank.QUEEN)) {
             Player nextPlayer = getNextPlayer();
